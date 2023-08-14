@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="row">
+    <div class="col">
+      {% for row in column_one %}
+        <div class="row">
+          <div class="col">
+            {% if row|get_item:"Item" %}
+              {% with row|get_item:"Item" as item %}
+                {% if item > 3000 %}
+                  {% if row|get_item:"Text" %}
+                    <a href="{{ hyperlinks|get_item_less_3000:item }}">{{ row|get_item:"Text" }}</a>
+                  {% elif row|get_item:"DisplayText" %}
+                    <a href="{% url hyperlinks|get_item_less_3000:item %}">{{ row|get_item:"DisplayText" }}</a>
+                  {% endif %}
+                {% else %}
+                  {% if row|get_item:"Text" %}
+                    <a href="{% url 'pages:detail' item %}">{{ row|get_item:"Text" }}</a>
+                  {% elif row|get_item:"DisplayText" %}
+                    <a href="{% url 'pages:detail' item %}">{{ row|get_item:"DisplayText" }}</a>
+                  {% endif %}
+                {% endif %}
+              {% endwith %}
+            {% else %}
+              {% if row|get_item:"Header" %}
+                {% if row|get_item:"Text" %}
+                  <strong>{{ row|get_item:"Text" }}</strong>
+                {% elif row|get_item:"DisplayText" %}
+                  <strong>{{ row|get_item:"DisplayText" }}</strong>
+                {% endif %}
+              {% else %}
+                {% if row|get_item:"Text" %}
+                  {{ row|get_item:"Text" }}
+                {% elif row|get_item:"DisplayText" %}
+                  {{ row|get_item:"DisplayText" }}
+                {% else %}
+                  <br />
+                {% endif %}
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    {% if column_two %}
+      <div class="col">
+        {% for row in column_two %}
+          <div class="row">
+            <div class="col">
+              {% if row|get_item:"Item" %}
+                {% with row|get_item:"Item" as item %}
+                  {% if item > 3000 %}
+                    {% if row|get_item:"Text" %}
+                      <a href="{{ hyperlinks|get_item_less_3000:item }}">{{ row|get_item:"Text" }}</a>
+                    {% elif row|get_item:"DisplayText" %}
+                      <a href="{% url hyperlinks|get_item_less_3000:item %}">{{ row|get_item:"DisplayText" }}</a>
+                    {% endif %}
+                  {% else %}
+                    {% if row|get_item:"Text" %}
+                      <a href="{% url 'pages:detail' item %}">{{ row|get_item:"Text" }}</a>
+                    {% elif row|get_item:"DisplayText" %}
+                      <a href="{% url 'pages:detail' item %}">{{ row|get_item:"DisplayText" }}</a>
+                    {% endif %}
+                  {% endif %}
+                {% endwith %}
+              {% else %}
+                {% if row|get_item:"Header" %}
+                  {% if row|get_item:"Text" %}
+                    <strong>{{ row|get_item:"Text" }}</strong>
+                  {% elif row|get_item:"DisplayText" %}
+                    <strong>{{ row|get_item:"DisplayText" }}</strong>
+                  {% endif %}
+                {% else %}
+                  {% if row|get_item:"Text" %}
+                    {{ row|get_item:"Text" }}
+                  {% elif row|get_item:"DisplayText" %}
+                    {{ row|get_item:"DisplayText" }}
+                  {% else %}
+                    <br />
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endblock content %}
